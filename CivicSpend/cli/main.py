@@ -13,7 +13,7 @@ def init():
     """Initialize database."""
     click.echo("Initializing CivicSpend database...")
     init_database()
-    click.echo("✓ Database initialized!")
+    click.echo("[OK] Database initialized!")
 
 if __name__ == "__main__":
     cli()
