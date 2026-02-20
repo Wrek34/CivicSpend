@@ -28,8 +28,23 @@ class Config:
             root = Path(__file__).parent.parent.parent
             config_path = root / "config" / "default.yaml"
         
+        # If config doesn't exist, use defaults
+        if not Path(config_path).exists():
+            self._config = self._get_defaults()
+            return
+        
         with open(config_path, 'r') as f:
             self._config = yaml.safe_load(f)
+    
+    def _get_defaults(self) -> Dict[str, Any]:
+        """Get default configuration."""
+        return {
+            'database': {'path': 'data/civicspend.duckdb', 'timeout': 30},
+            'api': {'base_url': 'https://api.usaspending.gov/api/v2', 'rate_limit': 5},
+            'normalization': {'fuzzy_threshold': 85},
+            'ml': {'contamination': 0.05},
+            'logging': {'level': 'INFO', 'file': 'data/civicspend.log'}
+        }
     
     def get(self, key: str, default: Any = None) -> Any:
         """Get configuration value by dot-notation key."""
