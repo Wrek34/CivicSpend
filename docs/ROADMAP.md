@@ -2,102 +2,102 @@
 
 ## MVP (Weeks 1-6) - CURRENT PHASE
 
-### Week 1: Foundation ✅ / 🚧 / ⏳
-- [ ] DuckDB schema created
-- [ ] USAspending API client with rate limiting
-- [ ] CLI: `gnit ingest`
-- [ ] `raw_awards` table populated
-- [ ] `run_manifest` tracking
-- [ ] Query: Top 20 vendors by obligation
-- [ ] Tests: API client, schema constraints
+### Week 1: Foundation ✅
+- [x] DuckDB schema created
+- [x] USAspending API client with rate limiting
+- [x] CLI: `civicspend ingest`
+- [x] `raw_awards` table populated
+- [x] `run_manifest` tracking
+- [x] Query: Top 20 vendors by obligation
+- [x] Tests: API client, schema constraints
 
-**Exit Criteria**: Can fetch and store MN awards for 24 months
+**Exit Criteria**: ✅ Can fetch and store MN awards for 24 months
 
 ---
 
-### Week 2: Normalization + Baseline Detection ⏳
-- [ ] Vendor fuzzy matching (rapidfuzz)
-- [ ] DUNS/UEI strong identifiers
+### Week 2: Normalization + Baseline Detection ✅
+- [x] Vendor fuzzy matching (rapidfuzz)
+- [x] DUNS/UEI strong identifiers
 - [ ] Manual override file support
-- [ ] CLI: `gnit normalize`
-- [ ] `vendor_entities`, `vendor_aliases`, `award_vendor_map` populated
-- [ ] Monthly aggregation with rolling features
-- [ ] CLI: `gnit build-features`
-- [ ] `monthly_vendor_spend` table populated
-- [ ] Robust MAD detector
-- [ ] CLI: `gnit detect-baseline`
-- [ ] `anomalies` table populated (baseline method)
-- [ ] Tests: Normalization, aggregation, injected spike detection
+- [x] CLI: `civicspend normalize`
+- [x] `vendor_entities`, `vendor_aliases`, `award_vendor_map` populated
+- [x] Monthly aggregation with rolling features
+- [x] CLI: `civicspend build-features`
+- [x] `monthly_vendor_spend` table populated
+- [x] Robust MAD detector
+- [x] CLI: `civicspend detect`
+- [x] Anomalies detected (baseline method)
+- [x] Tests: Normalization, aggregation, injected spike detection
 
-**Exit Criteria**: Can detect anomalies using robust MAD
-
----
-
-### Week 3: ML Anomaly Detection ⏳
-- [ ] Feature engineering (18 features)
-- [ ] Log transforms, cyclical encoding
-- [ ] StandardScaler pipeline
-- [ ] Isolation Forest trainer
-- [ ] CLI: `gnit train-model`
-- [ ] Model artifacts saved (`models/<run_id>/`)
-- [ ] CLI: `gnit score-anomalies`
-- [ ] `anomalies` table populated (ML method)
-- [ ] Side-by-side comparison: baseline vs ML
-- [ ] Tests: Model training deterministic, injected anomaly detection
-
-**Exit Criteria**: Can train and score with Isolation Forest
+**Exit Criteria**: ✅ Can detect anomalies using robust MAD
 
 ---
 
-### Week 4: Explanation + API ⏳
-- [ ] Evidence builder (top N awards per anomaly)
-- [ ] Feature driver calculator (deviation from historical median)
-- [ ] Narrative generator (templated explanations)
-- [ ] CLI: `gnit explain`
-- [ ] `explanation_json` populated for all anomalies
+### Week 3: ML Anomaly Detection ✅
+- [x] Feature engineering (16 features)
+- [x] Log transforms, cyclical encoding
+- [x] StandardScaler pipeline
+- [x] Isolation Forest trainer
+- [x] CLI: `civicspend train-model`
+- [x] Model artifacts saved (`models/<run_id>/`)
+- [x] ML anomalies detected
+- [x] Side-by-side comparison: baseline vs ML
+- [x] Tests: Model training deterministic, injected anomaly detection
+
+**Exit Criteria**: ✅ Can train and score with Isolation Forest
+
+---
+
+### Week 4: Explanation + Export ✅
+- [x] Evidence builder (top N awards per anomaly)
+- [x] Feature driver calculator (deviation from historical median)
+- [x] Narrative generator (templated explanations)
+- [x] Evidence layer with 100% traceability
+- [x] CLI: `civicspend export`
+- [x] CSV export (summary columns)
+- [x] JSON export (full records with evidence)
 - [ ] FastAPI app setup
 - [ ] Endpoints: `/anomalies`, `/anomalies/{id}`, `/vendors/{id}/timeline`
 - [ ] Pydantic schemas for validation
 - [ ] API documentation (auto-generated)
-- [ ] Tests: Evidence traceability, narrative rendering
+- [x] Tests: Evidence traceability, narrative rendering
 
-**Exit Criteria**: Can explain any anomaly with evidence
-
----
-
-### Week 5: UI + Export ⏳
-- [ ] Streamlit dashboard
-- [ ] Page 1: Anomaly list (filterable)
-- [ ] Page 2: Vendor detail (timeline + anomalies)
-- [ ] Page 3: Anomaly detail (evidence + drivers + narrative)
-- [ ] CLI: `gnit export-report`
-- [ ] CSV export (summary columns)
-- [ ] JSON export (full records)
-- [ ] Tests: UI loads, filters work, export matches DB
-
-**Exit Criteria**: Can demo full workflow in UI
+**Exit Criteria**: ✅ Can explain any anomaly with evidence
 
 ---
 
-### Week 6: Hardening + Documentation ⏳
+### Week 5: UI + Dashboard ✅
+- [x] Streamlit dashboard
+- [x] Page 1: Anomaly list (filterable)
+- [x] Page 2: Vendor detail (timeline + anomalies)
+- [x] Page 3: Evidence explorer (drill-down to awards)
+- [x] Interactive Plotly charts
+- [x] Export functionality integrated
+- [x] Tests: Export CSV/JSON
+
+**Exit Criteria**: ✅ Can demo full workflow in UI
+
+---
+
+### Week 6: Hardening + Documentation 🚧
 - [ ] Error handling (API failures, missing data)
 - [ ] Structured logging
 - [ ] Query optimization (indexes)
-- [ ] README.md (setup + quickstart)
-- [ ] docs/THESIS.md
-- [ ] docs/ARCHITECTURE.md
+- [x] README.md (setup + quickstart)
+- [x] docs/THESIS.md
+- [ ] docs/ARCHITECTURE.md (detailed)
 - [ ] docs/DATA_CONTRACTS.md
 - [ ] docs/METRICS.md (evaluation results)
-- [ ] docs/DEMO.md (3-5 min script)
-- [ ] docs/RISK_REGISTER.md
-- [ ] docs/DECISION_LOG.md
-- [ ] docs/ROADMAP.md (this file)
+- [x] docs/DEMO.md (3-5 min script)
+- [x] docs/RISK_REGISTER.md
+- [x] docs/DECISION_LOG.md
+- [x] docs/ROADMAP.md (this file)
 - [ ] docs/BUILD_LOG.md (weekly updates)
 - [ ] Demo script rehearsed
 - [ ] Release tag: v0.1.0-mvp
 - [ ] GitHub repo public
 - [ ] CI badge (tests passing)
-- [ ] Tests: End-to-end smoke test, demo dataset
+- [x] Tests: End-to-end smoke test, demo dataset
 
 **Exit Criteria**: Production-ready MVP, portfolio-quality artifacts
 

@@ -10,7 +10,7 @@
 
 ## What It Does
 
-Gnit automates the detection of spending anomalies in federal award data:
+CivicSpend automates the detection of spending anomalies in federal award data:
 
 - **Fetches** award data from USAspending.gov API
 - **Normalizes** vendor identities (fuzzy matching + DUNS/UEI)
@@ -20,7 +20,7 @@ Gnit automates the detection of spending anomalies in federal award data:
 - **Explains** every anomaly with row-level evidence
 - **Provides** dashboard + API for exploration
 
-**Important**: This is NOT fraud detection. Gnit identifies changes, outliers, and spikes—not intent or wrongdoing.
+**Important**: This is NOT fraud detection. CivicSpend identifies changes, outliers, and spikes—not intent or wrongdoing.
 
 ---
 
@@ -35,8 +35,8 @@ Gnit automates the detection of spending anomalies in federal award data:
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/gnit.git
-cd gnit
+git clone https://github.com/yourusername/civicspend.git
+cd civicspend
 
 # Install dependencies
 pip install -r requirements.txt
@@ -49,35 +49,32 @@ poetry install
 
 ```bash
 # 1. Fetch awards (Minnesota, last 24 months)
-gnit ingest --state MN --start-date 2022-01-01 --end-date 2024-01-31
+civicspend ingest --state MN --start-date 2022-01-01 --end-date 2024-01-31
 
 # 2. Normalize vendors
-gnit normalize --run-id <run_id>
+civicspend normalize --run-id <run_id>
 
 # 3. Build features
-gnit build-features --run-id <run_id>
+civicspend build-features --run-id <run_id>
 
 # 4. Train model
-gnit train-model --run-id <run_id>
+civicspend train-model --run-id <run_id>
 
-# 5. Score anomalies
-gnit score-anomalies --run-id <run_id> --model-run-id <run_id>
+# 5. Detect anomalies
+civicspend detect --run-id <run_id>
 
-# 6. Generate explanations
-gnit explain --run-id <run_id>
-
-# 7. Launch dashboard
-streamlit run gnit/ui/app.py
+# 6. Launch dashboard
+streamlit run civicspend/ui/app.py
 ```
 
 ### Export Report
 
 ```bash
 # CSV export
-gnit export-report --run-id <run_id> --format csv --output report.csv
+civicspend export --run-id <run_id> --format csv --output report.csv
 
 # JSON export
-gnit export-report --run-id <run_id> --format json --output report.json
+civicspend export --run-id <run_id> --format json --output report.json
 ```
 
 ---
@@ -171,7 +168,7 @@ Every anomaly includes:
 pytest
 
 # Run with coverage
-pytest --cov=gnit --cov-report=html
+pytest --cov=civicspend --cov-report=html
 
 # Run specific test
 pytest tests/test_detection.py::test_baseline_spike_detection -v
@@ -191,46 +188,40 @@ pytest tests/test_detection.py::test_baseline_spike_detection -v
 
 ## CLI Reference
 
-### gnit ingest
+### civicspend ingest
 Fetch awards from USAspending API
 ```bash
-gnit ingest --state MN --start-date 2022-01-01 --end-date 2024-01-31
+civicspend ingest --state MN --start-date 2022-01-01 --end-date 2024-01-31
 ```
 
-### gnit normalize
+### civicspend normalize
 Deduplicate vendor identities
 ```bash
-gnit normalize --run-id <run_id>
+civicspend normalize --run-id <run_id>
 ```
 
-### gnit build-features
+### civicspend build-features
 Aggregate monthly spend + compute rolling features
 ```bash
-gnit build-features --run-id <run_id>
+civicspend build-features --run-id <run_id>
 ```
 
-### gnit train-model
+### civicspend train-model
 Train Isolation Forest
 ```bash
-gnit train-model --run-id <run_id>
+civicspend train-model --run-id <run_id>
 ```
 
-### gnit score-anomalies
+### civicspend detect
 Detect anomalies (baseline + ML)
 ```bash
-gnit score-anomalies --run-id <run_id> --model-run-id <run_id>
+civicspend detect --run-id <run_id>
 ```
 
-### gnit explain
-Generate evidence and narratives
-```bash
-gnit explain --run-id <run_id>
-```
-
-### gnit export-report
+### civicspend export
 Export anomalies to CSV/JSON
 ```bash
-gnit export-report --run-id <run_id> --format csv --output report.csv
+civicspend export --run-id <run_id> --format csv --output report.csv
 ```
 
 ---
@@ -260,8 +251,8 @@ curl "http://localhost:8000/vendors/<vendor_id>/timeline?run_id=<run_id>"
 ## Project Structure
 
 ```
-gnit/
-├── gnit/                   # Main package
+civicspend/
+├── civicspend/             # Main package
 │   ├── cli/                # Click commands
 │   ├── ingest/             # USAspending API client
 │   ├── normalize/          # Vendor deduplication
