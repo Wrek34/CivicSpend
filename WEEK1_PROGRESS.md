@@ -1,87 +1,80 @@
-# 🎉 CivicSpend - Week 1 Progress
+# 🎉 CivicSpend - Week 1 COMPLETE!
 
-## ✅ Completed (Day 1-2)
+## ✅ Completed (Days 1-5)
 
 ### Project Renamed
 - ✅ Renamed from "Gnit" to "CivicSpend"
-- ✅ Updated all references in code and docs
-- ✅ Package structure: `civicspend/`
+- ✅ Updated all references
+- ✅ Package: `civicspend/`
 
 ### Database Foundation
-- ✅ DuckDB schema created (`civicspend/db/schema.sql`)
-- ✅ Tables: `run_manifest`, `raw_awards`
-- ✅ Database connection module (`civicspend/db/connection.py`)
+- ✅ DuckDB schema with 2 tables
+- ✅ Connection module working
 - ✅ Indexes for performance
 
 ### CLI Framework
-- ✅ CLI entry point (`civicspend/cli/main.py`)
-- ✅ `civicspend init` command working
-- ✅ Click framework integrated
+- ✅ `civicspend init` - Initialize database
+- ✅ `civicspend ingest` - Ingest awards data
+
+### Data Ingestion
+- ✅ USAspending API client with rate limiting
+- ✅ Mock data generator (100 awards)
+- ✅ Successfully storing awards in database
+- ✅ Top vendor aggregation working
 
 ### Testing
-- ✅ First test passing (`tests/test_db.py`)
-- ✅ Database creation verified
-- ✅ pytest framework working
+- ✅ 4 tests passing (100%)
+- ✅ Database creation test
+- ✅ API client tests
+- ✅ Mock ingestion test
 
-### Git History
+### Sample Output
 ```
-3fe8961 feat(week1): working database initialization
-7ecdc00 refactor: rename project from Gnit to CivicSpend
-c1398e5 docs: add project status summary
-4383e52 docs: add GitHub setup and development quickstart guides
-737d707 Initial commit: Project structure and documentation
+Top 5 Vendors:
+  General Mills: $36,643,651.39
+  Ecolab: $31,239,946.23
+  Land O'Lakes: $29,482,269.24
+  Ameriprise Financial: $27,118,197.77
+  3M Company: $26,635,517.66
 ```
 
-## 🎯 Next Steps (Day 3-4)
+## 📊 Week 1 Status
 
-### USAspending API Client
-- [ ] Create `civicspend/ingest/api_client.py`
-- [ ] Implement `fetch_awards()` function
-- [ ] Add rate limiting (5 req/sec)
-- [ ] Add exponential backoff retry
-- [ ] Test with mock API responses
+**Days Complete**: 5 of 7 ✅  
+**Tests Passing**: 4/4 (100%) ✅  
+**Commits**: 6  
+**Lines of Code**: ~500  
 
-### CLI Ingest Command
-- [ ] Create `civicspend/cli/ingest.py`
-- [ ] Implement `civicspend ingest` command
-- [ ] Options: `--state`, `--start-date`, `--end-date`
-- [ ] Generate `run_id` (UUID)
-- [ ] Insert into `run_manifest` and `raw_awards`
+**Status**: AHEAD OF SCHEDULE! 🚀
 
-## 📊 Status
+## 🎯 Next: Week 2 - Vendor Normalization
 
-**Week**: 1 of 6  
-**Days Complete**: 2 of 7  
-**Tests Passing**: 1/1 ✅  
-**Commits**: 5  
+### Goals (Days 1-3)
+- [ ] Fuzzy vendor matching
+- [ ] DUNS/UEI deduplication
+- [ ] `vendor_entities` table
+- [ ] `civicspend normalize` command
 
-**On Track**: ✅ Yes
+### Goals (Days 4-7)
+- [ ] Monthly aggregation
+- [ ] Rolling features (3/6/12 months)
+- [ ] Baseline anomaly detection (Robust MAD)
+- [ ] First anomalies detected!
 
 ## 🚀 How to Continue
 
-1. **Test current setup**:
 ```bash
-python -m civicspend.cli.main init
-python -m pytest tests/test_db.py -v
+# Run all tests
+python -m pytest tests/ -v
+
+# Test ingestion
+python -m pytest tests/test_mock_ingest.py -v -s
+
+# Start Week 2
+# Follow docs/IMPLEMENTATION_CHECKLIST.md Week 2
 ```
-
-2. **Start Day 3**:
-- Create API client in `civicspend/ingest/api_client.py`
-- Follow `docs/IMPLEMENTATION_CHECKLIST.md` Week 1 Day 3-4
-
-3. **Commit regularly**:
-```bash
-git add -A
-git commit -m "feat(ingest): add API client"
-```
-
-## 💡 Key Learnings
-
-- DuckDB is fast and easy to set up
-- Click makes CLI development simple
-- Test-first approach catches issues early
-- Small commits make progress visible
 
 ---
 
-**Next**: Build USAspending API client (Day 3-4)
+**Week 1**: ✅ COMPLETE  
+**Next**: Week 2 - Vendor Normalization + Baseline Detection
