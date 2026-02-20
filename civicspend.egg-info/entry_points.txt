@@ -1,0 +1,2 @@
+[console_scripts]
+civicspend = civicspend.cli.main:cli

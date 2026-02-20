@@ -1,0 +1,16 @@
+LICENSE
+README.md
+setup.py
+civicspend.egg-info/PKG-INFO
+civicspend.egg-info/SOURCES.txt
+civicspend.egg-info/dependency_links.txt
+civicspend.egg-info/entry_points.txt
+civicspend.egg-info/requires.txt
+civicspend.egg-info/top_level.txt
+tests/__init__.py
+tests/test_api_client.py
+tests/test_db.py
+tests/test_e2e_pipeline.py
+tests/test_export.py
+tests/test_ml_evidence.py
+tests/test_mock_ingest.py

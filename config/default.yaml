@@ -1,0 +1,64 @@
+# CivicSpend Configuration
+
+# Database
+database:
+  path: "data/civicspend.duckdb"
+  timeout: 30
+
+# USAspending API
+api:
+  base_url: "https://api.usaspending.gov/api/v2"
+  rate_limit: 5  # requests per second
+  timeout: 30
+  max_retries: 3
+  backoff_factor: 2
+
+# Vendor Normalization
+normalization:
+  fuzzy_threshold: 85  # 0-100
+  min_name_length: 3
+  use_duns: true
+
+# Feature Engineering
+features:
+  rolling_window: 3  # months
+  min_history: 2  # months required
+
+# Anomaly Detection - Baseline
+baseline:
+  method: "robust_mad"
+  threshold: 3.5  # Modified Z-score threshold
+  min_volume: 10000  # minimum monthly spend to flag
+
+# Anomaly Detection - ML
+ml:
+  model: "isolation_forest"
+  n_estimators: 200
+  contamination: 0.05
+  random_state: 42
+  max_samples: "auto"
+
+# Severity Thresholds
+severity:
+  critical: 5.0  # anomaly score
+  high: 4.0
+  medium: 3.0
+  low: 2.0
+
+# Evidence
+evidence:
+  top_awards: 5  # number of top awards to include
+  min_contribution: 0.05  # 5% minimum contribution
+
+# Export
+export:
+  max_rows: 10000
+  include_evidence: true
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "data/civicspend.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 3
