@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="gnit",
+    name="civicspend",
     version="0.1.0-dev",
     packages=find_packages(),
     install_requires=[
@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "gnit=gnit.cli.main:cli",
+            "civicspend=civicspend.cli.main:cli",
         ],
     },
     python_requires=">=3.11",

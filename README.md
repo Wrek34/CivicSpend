@@ -1,4 +1,4 @@
-# Gnit: Government Insight Tracker
+# CivicSpend: Public Spending Transparency Platform
 
 > Detect meaningful changes in public spending using robust statistics + machine learning
 
